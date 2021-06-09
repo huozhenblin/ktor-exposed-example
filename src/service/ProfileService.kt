@@ -48,4 +48,4 @@ class ProfileService() {
 fun isFollower(user: User, follower: User?) = if (follower != null) user.followers.any { it == follower } else false
 
 fun getProfileByUser(user: User?, following: Boolean = false) =
-    ProfileResponse(profile = user?.run { ProfileResponse.Profile(username, bio, image, following) })
+    ProfileResponse(profile = user?.run { ProfileResponse.Profile(username, bio ?: "", image, following) })

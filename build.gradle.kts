@@ -34,11 +34,10 @@ dependencies {
     implementation(Deps.ktorServerNetty)
     implementation(Deps.logback)
     implementation(Deps.ktorAuthJwt)
+    implementation("mysql", "mysql-connector-java", "8.0.25")
     implementation(Deps.ktorJackson)
-
     implementation(Deps.h2Database)
     implementation(Deps.exposed)
     implementation(Deps.hikari)
-
     testImplementation(Deps.ktorTests)
 }

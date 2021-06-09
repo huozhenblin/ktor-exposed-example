@@ -26,11 +26,18 @@ object DatabaseFactory {
     //数据库链接池配置
     private fun hikari(): HikariDataSource {
         val config = HikariConfig().apply {
-            jdbcUrl         = "jdbc:mysql://localhost/kotlin_example"
-            driverClassName = "com.mysql.cj.jdbc.Driver"
-            username        = "root"
-            password        = "huo451545"
-            maximumPoolSize = 10
+            driverClassName = "org.h2.Driver"
+//            jdbcUrl = "jdbc:h2:tcp://localhost/~/realworldtest"
+            jdbcUrl = "jdbc:h2:mem:~realworldtest"
+            maximumPoolSize = 3
+            isAutoCommit = false
+            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+
+            //jdbcUrl         = "jdbc:mysql://localhost/kotlin_example"
+            //driverClassName = "com.mysql.cj.jdbc.Driver"
+            //username        = "root"
+            //password        = "huo451545"
+            //maximumPoolSize = 10
         }
         return HikariDataSource(config)
     }

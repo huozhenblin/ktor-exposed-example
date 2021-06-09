@@ -4,9 +4,11 @@ import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.UUIDEntity
 import org.jetbrains.exposed.dao.UUIDEntityClass
 import org.jetbrains.exposed.dao.UUIDTable
+import org.jetbrains.exposed.sql.Date
 import org.jetbrains.exposed.sql.ReferenceOption
 import org.jetbrains.exposed.sql.Table
 import org.joda.time.DateTime
+import java.time.Instant
 import java.util.*
 
 object Articles : UUIDTable() {

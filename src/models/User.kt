@@ -9,7 +9,7 @@ import java.util.*
 object Users : UUIDTable() {
     val email = varchar("email", 255).uniqueIndex()
     val username = varchar("username", 255).uniqueIndex()
-    val bio = text("bio").default("")
+    val bio = text("bio").nullable()
     val image = varchar("image", 255).nullable()
     val password = varchar("password", 255)
 }
@@ -63,7 +63,7 @@ data class UserResponse(val user: UserResponse.User) {
                 email = user.email,
                 token = token,
                 username = user.username,
-                bio = user.bio,
+                bio = user.bio ?: "",
                 image = user.image
             )
         )
