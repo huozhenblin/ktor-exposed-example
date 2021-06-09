@@ -1,3 +1,12 @@
+这个项目有较为完善的项目结构示例，然后对exposed的使用方式与ktor的整合基本涵盖。
+
+已知问题：
+1.转化为mysql数据库时日期会出现问题。
+2.改变文件重启时会报错找不到协程类（未解决），暂时的解决方法gradle clear以下项目重启即可。
+
+
+
+
 # ![RealWorld Example App](logo.png)
 
 > ### [Kotlin-Ktor](https://github.com/kotlin/ktor) codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) spec and API.
