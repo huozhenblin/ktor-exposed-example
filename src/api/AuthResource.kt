@@ -16,6 +16,11 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.put
 
+/*
+*用户相关路由
+*除了登陆注册接口
+*其他需要权限
+* */
 fun Route.auth(authService: AuthService, simpleJWT: SimpleJWT) {
 
     /*
@@ -55,6 +60,7 @@ fun Route.auth(authService: AuthService, simpleJWT: SimpleJWT) {
          */
         put("/user") {
             val updateUser = call.receive<UpdateUser>()
+            //call.userId() jwt中获取对应id？
             val user = authService.updateUser(call.userId(), updateUser)
             call.respond(UserResponse.fromUser(user, token = simpleJWT.sign(user.id)))
         }
@@ -65,6 +71,28 @@ fun Route.auth(authService: AuthService, simpleJWT: SimpleJWT) {
     //Returns all users
     get("/users") {
         val users = authService.getAllUsers()
+        //通过map方法，映射成user：{userinfo}的列表
+        /*
+        [
+     {
+    "user": {
+      "email": "drag1@gmail.com",
+      "token": "",
+      "username": "drag1",
+      "bio": "I work here too",
+      "image": "https://image2.com"
+    }
+     },
+     {
+    "user": {
+      "email": "drag1@gmail1.com",
+      "token": "",
+      "username": "drag2",
+      "bio": "",
+      "image": null
+    }
+    }
+    ]*/
         call.respond(users.map { UserResponse.fromUser(it) })
     }
 

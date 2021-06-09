@@ -11,13 +11,21 @@ import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.or
 import java.util.*
 
+/*
+* 用户及权限相关的service类
+*
+*
+* */
 class AuthService {
-
+    /*
+    * 注册用户
+    * */
     suspend fun register(registerUser: RegisterUser): User {
         return dbQuery {
             val userInDatabase =
                 User.find { (Users.username eq registerUser.user.username) or (Users.email eq registerUser.user.email) }
                     .firstOrNull()
+            //这个异常是一个运行时异常。
             if (userInDatabase != null) throw UserExists()
             User.new {
                 username = registerUser.user.username
@@ -26,9 +34,10 @@ class AuthService {
             }
         }
     }
-
+    //获取所有用户
     suspend fun getAllUsers(): List<User> {
         return dbQuery {
+            //dao方式查询所有，将各行取出封装为list
             User.all().toList()
         }
     }
@@ -44,7 +53,7 @@ class AuthService {
             getUser(id)
         }
     }
-
+    //登陆
     suspend fun loginAndGetUser(email: String, password: String): User {
         return dbQuery {
             User.find { (Users.email eq email) and (Users.password eq password) }.firstOrNull()
@@ -55,6 +64,7 @@ class AuthService {
     suspend fun updateUser(userId: String, updateUser: UpdateUser): User {
         return dbQuery {
             val user = getUser(userId)
+            //使用dao方式进行更新。
             user.apply {
                 email = updateUser.user.email ?: email
                 password = updateUser.user.password ?: password
@@ -67,7 +77,7 @@ class AuthService {
 
 
 }
-
+//使用dao方式查询会自动封装到对应的实体类
 fun getUser(id: String) = User.findById(UUID.fromString(id)) ?: throw UserDoesNotExists()
 
 fun getUserByUsername(username: String) = User.find { Users.username eq username }.firstOrNull()

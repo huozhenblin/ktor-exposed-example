@@ -13,7 +13,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object DatabaseFactory {
 
     fun init() {
+        //创建数据库连接池
         Database.connect(hikari())
+        //初始化数据库表
         transaction {
             create(Users, Followings, Articles, Tags, ArticleTags, FavoriteArticle, Comments, ArticleComment)
 
@@ -21,18 +23,18 @@ object DatabaseFactory {
         }
     }
 
+    //数据库链接池配置
     private fun hikari(): HikariDataSource {
         val config = HikariConfig().apply {
-            driverClassName = "org.h2.Driver"
-//            jdbcUrl = "jdbc:h2:tcp://localhost/~/realworldtest"
-            jdbcUrl = "jdbc:h2:mem:~realworldtest"
-            maximumPoolSize = 3
-            isAutoCommit = false
-            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+            jdbcUrl         = "jdbc:mysql://localhost/kotlin_example"
+            driverClassName = "com.mysql.cj.jdbc.Driver"
+            username        = "root"
+            password        = "huo451545"
+            maximumPoolSize = 10
         }
         return HikariDataSource(config)
     }
-
+    //通用增删查改的通用函数保证，创建协程运行不阻塞主线程。
     suspend fun <T> dbQuery(block: () -> T): T = withContext(Dispatchers.IO) {
         transaction { block() }
     }

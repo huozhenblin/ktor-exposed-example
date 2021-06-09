@@ -40,9 +40,9 @@ fun Application.module() {
     DatabaseFactory.init()
 
     routing {
-        install(StatusPages) {
+        /*install(StatusPages) {
             statusPages()
-        }
+        }*/
         api()
     }
 }

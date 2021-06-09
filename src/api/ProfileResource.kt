@@ -15,6 +15,8 @@ import io.ktor.routing.post
 
 fun Route.profile(profileService: ProfileService) {
 
+    //参数含义，如果请求无token，
+    //请求也能进入但是没有对应的principal信息
     authenticate(optional = true) {
 
         /*

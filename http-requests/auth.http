@@ -38,7 +38,7 @@ Content-Type: application/json
 
 {
   "user": {
-    "email": "drag2@gmail.com",
+    "email": "drag1@gmail.com",
     "password": "1234"
   }
 }
@@ -77,7 +77,7 @@ Accept: application/json
 ###
 
 # GET PROFILE - AUTHENTICATED
-GET {{base-url}}/profiles/drag2
+GET {{base-url}}/profiles/drag1
 Accept: application/json
 Authorization: Token {{auth_token}}
 
@@ -91,7 +91,7 @@ Authorization: Token {{auth_token}}
 ###
 
 # UNFOLLOW USER
-DELETE {{base-url}}/profiles/drag1/follow
+DELETE {{base-url}}/profiles/drag2/follow
 Accept: application/json
 Authorization: Token {{auth_token}}
 

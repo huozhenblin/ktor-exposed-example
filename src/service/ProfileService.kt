@@ -32,6 +32,7 @@ class ProfileService() {
 
     private fun addFollower(user: User, newFollower: User) {
         if (!isFollower(user, newFollower)) {
+            //dao的形式更新数据，没看太懂，多对多表插入？
             user.followers = SizedCollection(user.followers.plus(newFollower))
         }
     }
